@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DesterPlayer — PC preview</title>
+  <style>
+    :root {
+      --bg: #101114;
+      --surface: #1b1d22;
+      --surface-high: #29243b;
+      --border: #343641;
+      --text: #f4f4f5;
+      --muted: #b7bbc4;
+      --accent: #b86cff;
+      --accent-soft: #332e48;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      color: var(--text);
+      background: radial-gradient(circle at 50% 0%, #29213d 0, var(--bg) 42%);
+      font: 14px/1.45 Inter, Segoe UI, system-ui, sans-serif;
+    }
+
+    .preview-note {
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: .02em;
+    }
+
+    .phone {
+      width: min(390px, 100%);
+      min-height: 780px;
+      overflow: hidden;
+      border: 7px solid #24252c;
+      border-radius: 34px;
+      background: var(--bg);
+      box-shadow: 0 26px 80px #0009, 0 0 0 1px #ffffff08;
+    }
+
+    .screen { display: none; padding: 18px; }
+    .screen.active { display: block; }
+
+    .topbar { display: flex; align-items: center; gap: 8px; }
+    .brand { flex: 1; font-size: 24px; font-weight: 800; }
+    .subtitle { margin: 3px 0 18px; color: var(--muted); }
+    .status {
+      padding: 6px 11px;
+      color: var(--accent);
+      border: 1px solid #b86cff33;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    button {
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 12px 14px;
+      color: var(--text);
+      background: var(--surface);
+      cursor: pointer;
+      font: inherit;
+      transition: .16s ease;
+    }
+    button:hover { border-color: var(--accent); transform: translateY(-1px); }
+    button:active { transform: translateY(0); }
+    button.primary { color: #20172b; border-color: transparent; background: var(--accent); font-weight: 800; }
+    button.ghost { padding: 9px 12px; }
+
+    .card {
+      margin: 14px 0;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: linear-gradient(145deg, var(--surface-high), var(--surface));
+    }
+    .hero { display: flex; align-items: center; gap: 14px; }
+    .logo, .cover {
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      color: #20172b;
+      background: linear-gradient(135deg, #c88bff, #8157d9);
+      font-weight: 900;
+    }
+    .logo { width: 54px; height: 54px; border-radius: 17px; font-size: 27px; }
+    .cover { width: 100%; aspect-ratio: 1; border-radius: 18px; font-size: 74px; }
+    h1, h2, p { margin: 0; }
+    h2 { font-size: 20px; }
+    .muted { color: var(--muted); }
+    .small { margin-top: 4px; color: var(--muted); font-size: 12px; }
+    .stack { display: grid; gap: 10px; }
+    .menu-grid { display: grid; gap: 10px; margin-top: 14px; }
+    .menu-grid button { display: flex; align-items: center; justify-content: space-between; text-align: left; }
+    .menu-grid span { color: var(--muted); font-size: 18px; }
+
+    .cover-wrap { margin: 14px 0; }
+    .track-title { margin-top: 14px; font-size: 21px; font-weight: 800; }
+    .progress { height: 6px; margin: 17px 0 6px; border-radius: 99px; background: #45404f; overflow: hidden; }
+    .progress i { display: block; width: 38%; height: 100%; border-radius: inherit; background: var(--accent); }
+    .time { display: flex; justify-content: space-between; color: var(--muted); font-size: 11px; }
+    .controls { display: flex; justify-content: center; align-items: center; gap: 12px; margin: 16px 0; }
+    .controls button { width: 46px; height: 46px; padding: 0; border-radius: 50%; }
+    .controls .play { width: 58px; height: 58px; color: #20172b; border: 0; background: var(--accent); font-size: 20px; }
+    .queue { display: grid; gap: 8px; margin-top: 12px; }
+    .queue button { display: flex; justify-content: space-between; padding: 11px 12px; text-align: left; }
+    .queue button.current { border-color: var(--accent); background: var(--accent-soft); }
+
+    .pc-card { display: flex; align-items: center; gap: 12px; }
+    .pc-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px; background: #29243b; color: var(--accent); font-size: 21px; }
+    .pc-card strong { display: block; }
+    .pc-card .muted { font-size: 12px; }
+    .back { width: 100%; margin-top: 10px; }
+    .footer { margin-top: 28px; text-align: center; color: #777b86; font-size: 11px; }
+  </style>
+</head>
+<body>
+  <div class="preview-note">Тестовое PC-превью интерфейса DesterPlayer</div>
+  <main class="phone">
+    <section class="screen active" data-screen="menu">
+      <div class="topbar"><div class="brand">DesterPlayer</div><div class="status" id="menuStatus">Не подключено</div></div>
+      <p class="subtitle">Музыка с телефона — на компьютере</p>
+      <div class="card hero">
+        <div class="logo">D</div>
+        <div><h2>Добро пожаловать</h2><p class="small">Подключи ПК, включи передачу и управляй музыкой из одного места.</p></div>
+      </div>
+      <div class="menu-grid">
+        <button data-go="player">Открыть плеер <span>›</span></button>
+        <button data-go="connection">Подключение <span>⌁</span></button>
+        <button data-go="help">Помощь <span>?</span></button>
+        <button data-go="about">О приложении <span>i</span></button>
+      </div>
+      <div class="footer">локальная сеть • DesterPlayer</div>
+    </section>
+
+    <section class="screen" data-screen="player">
+      <div class="topbar"><div class="brand">Плеер</div><div class="status" id="playerStatus">Подключено</div></div>
+      <p class="subtitle">Управление музыкой на телефоне</p>
+      <div class="cover-wrap"><div class="cover">D</div></div>
+      <h2 class="track-title" id="trackTitle">After Dark</h2>
+      <p class="muted" id="trackArtist">Mr.Kitty • VKX</p>
+      <div class="progress"><i></i></div><div class="time"><span>1:24</span><span>4:03</span></div>
+      <div class="controls">
+        <button title="Предыдущий">◀◀</button><button class="play" id="playButton" title="Пауза">Ⅱ</button><button title="Следующий">▶▶</button>
+      </div>
+      <div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><h2 style="font-size:16px">Очередь</h2><span class="muted">3 трека</span></div>
+        <div class="queue">
+          <button class="current" data-track="After Dark" data-artist="Mr.Kitty • VKX"><span>After Dark<br><small class="muted">Mr.Kitty</small></span><span>♫</span></button>
+          <button data-track="Resonance" data-artist="HOME • VKX"><span>Resonance<br><small class="muted">HOME</small></span><span>›</span></button>
+          <button data-track="Nightcall" data-artist="Kavinsky • VKX"><span>Nightcall<br><small class="muted">Kavinsky</small></span><span>›</span></button>
+        </div>
+      </div>
+      <button class="back" data-go="menu">← Вернуться в меню</button>
+    </section>
+
+    <section class="screen" data-screen="connection">
+      <div class="topbar"><div class="brand">Подключение</div><div class="status" id="connectionStatus">Готово</div></div>
+      <p class="subtitle">Найди DesterPlayer на компьютере</p>
+      <div class="card pc-card"><div class="pc-icon">▣</div><div><strong>DesterPlayer PC</strong><span class="muted">192.168.0.110:37821</span></div></div>
+      <div class="stack">
+        <button class="primary" id="findButton">Найти ПК</button>
+        <button id="connectButton">Подключиться</button>
+        <button class="primary" id="streamButton">Начать передачу</button>
+      </div>
+      <div class="card"><p id="connectionLog" class="muted">Телефон и компьютер должны быть в одной Wi‑Fi сети.</p></div>
+      <button class="back" data-go="menu">← Вернуться в меню</button>
+    </section>
+
+    <section class="screen" data-screen="help">
+      <div class="topbar"><div class="brand">Помощь</div></div>
+      <p class="subtitle">Короткая инструкция</p>
+      <div class="card stack"><p><b>1.</b> Запусти DesterPlayer на ПК.</p><p><b>2.</b> Нажми «Найти ПК».</p><p><b>3.</b> Подключись и начни передачу.</p><p><b>4.</b> Разреши системный захват звука.</p></div>
+      <button class="back" data-go="menu">← Вернуться в меню</button>
+    </section>
+
+    <section class="screen" data-screen="about">
+      <div class="topbar"><div class="brand">О приложении</div></div>
+      <p class="subtitle">DesterPlayer Mobile 1.1.0</p>
+      <div class="card stack"><p>DesterPlayer передаёт звук, название трека и обложку с телефона на компьютер напрямую по локальной сети.</p><p class="muted">Интернет для передачи звука не нужен.</p></div>
+      <button class="back" data-go="menu">← Вернуться в меню</button>
+    </section>
+  </main>
+
+  <script>
+    const screens = [...document.querySelectorAll('.screen')];
+    function go(name) { screens.forEach(s => s.classList.toggle('active', s.dataset.screen === name)); }
+    document.querySelectorAll('[data-go]').forEach(button => button.addEventListener('click', () => go(button.dataset.go)));
+    document.querySelectorAll('[data-track]').forEach(button => button.addEventListener('click', () => {
+      document.querySelectorAll('[data-track]').forEach(item => item.classList.remove('current'));
+      button.classList.add('current');
+      document.querySelector('#trackTitle').textContent = button.dataset.track;
+      document.querySelector('#trackArtist').textContent = button.dataset.artist;
+    }));
+    document.querySelector('#playButton').addEventListener('click', event => {
+      event.currentTarget.textContent = event.currentTarget.textContent === 'Ⅱ' ? '▶' : 'Ⅱ';
+    });
+    document.querySelector('#findButton').addEventListener('click', () => {
+      document.querySelector('#connectionStatus').textContent = 'Найдено';
+      document.querySelector('#connectionLog').textContent = 'ПК найден в локальной сети. Можно подключаться.';
+    });
+    document.querySelector('#connectButton').addEventListener('click', () => {
+      document.querySelector('#connectionStatus').textContent = 'Подключено';
+      document.querySelector('#menuStatus').textContent = 'Подключено';
+      document.querySelector('#playerStatus').textContent = 'Подключено';
+      document.querySelector('#connectionLog').textContent = 'Соединение установлено. Готово к передаче звука.';
+    });
+    document.querySelector('#streamButton').addEventListener('click', () => {
+      document.querySelector('#connectionStatus').textContent = 'Передача';
+      document.querySelector('#connectionLog').textContent = 'Тестовая передача запущена. Это только визуальный макет.';
+    });
+  </script>
+</body>
+</html>
