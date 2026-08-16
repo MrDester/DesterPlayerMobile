@@ -25,6 +25,10 @@ object CurrentTrackStore {
 
     fun get(): TrackInfo = current
 
+    fun refresh() {
+        activeController?.let { update(it) }
+    }
+
     fun update(controller: MediaController?) {
         activeController = controller
         val metadata = controller?.metadata
@@ -90,6 +94,7 @@ object CurrentTrackStore {
                     return false
                 }
             }
+            update(controller)
             true
         } catch (_: Exception) {
             false

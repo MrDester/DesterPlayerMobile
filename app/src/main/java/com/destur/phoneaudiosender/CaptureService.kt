@@ -405,6 +405,7 @@ class CaptureService : Service() {
     }
 
     private fun sendTrackIfChanged(output: OutputStream, previousPayload: String?): String {
+        CurrentTrackStore.refresh()
         val track = CurrentTrackStore.get()
         val payload = track.title + "\n" +
             track.artist + "\n" +

@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
 
     private val uiHandler = Handler(Looper.getMainLooper())
     private var lastTrackSignature: String? = null
+    private var lastQueueSignature: String? = null
     private var lastCoverHash: Int? = null
     private val trackUiRefresh = object : Runnable {
         override fun run() {
@@ -232,6 +233,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun refreshTrackUi() {
+        CurrentTrackStore.refresh()
         val track = CurrentTrackStore.get()
         val signature = track.title + "\u0000" + track.artist
         if (signature != lastTrackSignature) {
@@ -254,35 +256,10 @@ class MainActivity : AppCompatActivity() {
             trackDurationText.text = "живой поток"
         }
 
-        queueContainer.removeAllViews()
-        if (track.queueTitles.isEmpty()) {
-            val emptyView = TextView(this).apply {
-                text = "♫  Очередь пока пуста\n    Выберите музыку в VKX"
-                setTextColor(ContextCompat.getColor(this@MainActivity, R.color.sender_text_secondary))
-                textSize = 13f
-                setPadding(dp(6), dp(10), dp(6), dp(10))
-            }
-            queueContainer.addView(emptyView)
-        } else {
-            track.queueTitles.forEachIndexed { index, title ->
-                val row = TextView(this).apply {
-                    text = "%02d   %s".format(index + 1, title)
-                    setTextColor(ContextCompat.getColor(this@MainActivity, R.color.sender_text_secondary))
-                    textSize = 13f
-                    maxLines = 1
-                    ellipsize = android.text.TextUtils.TruncateAt.END
-                    isSelected = title == track.title
-                    setPadding(dp(12), dp(10), dp(12), dp(10))
-                    setBackgroundResource(R.drawable.bg_queue_item)
-                }
-                val params = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply {
-                    topMargin = if (index == 0) 0 else dp(6)
-                }
-                queueContainer.addView(row, params)
-            }
+        val queueSignature = track.title + "\u0000" + track.queueTitles.joinToString("\u0001")
+        if (queueSignature != lastQueueSignature) {
+            renderQueue(track)
+            lastQueueSignature = queueSignature
         }
 
         val cover = track.coverJpeg
@@ -301,6 +278,70 @@ class MainActivity : AppCompatActivity() {
         if (bitmap != null) {
             coverImage.setImageBitmap(bitmap)
             coverPlaceholder.visibility = View.GONE
+        }
+    }
+
+    private fun renderQueue(track: TrackInfo) {
+        queueContainer.removeAllViews()
+        val currentIndex = track.queueTitles.indexOfFirst {
+            it.equals(track.title, ignoreCase = true)
+        }
+        val upcoming = if (currentIndex >= 0) {
+            track.queueTitles.drop(currentIndex + 1)
+        } else {
+            track.queueTitles
+        }
+
+        if (upcoming.isEmpty()) {
+            val emptyView = TextView(this).apply {
+                text = if (track.queueTitles.isEmpty()) {
+                    "♫  Очередь пока пуста\n    Выберите музыку в VKX"
+                } else {
+                    "♫  Это последний трек\n    Следующих песен пока нет"
+                }
+                setTextColor(ContextCompat.getColor(this@MainActivity, R.color.sender_text_secondary))
+                textSize = 13f
+                setPadding(dp(6), dp(10), dp(6), dp(10))
+            }
+            queueContainer.addView(emptyView)
+            return
+        }
+
+        upcoming.forEachIndexed { displayIndex, title ->
+            val queueIndex = if (currentIndex >= 0) {
+                currentIndex + 1 + displayIndex
+            } else {
+                displayIndex
+            }
+            val row = TextView(this).apply {
+                text = "%02d   %s".format(displayIndex + 1, title)
+                setTextColor(ContextCompat.getColor(this@MainActivity, R.color.sender_text_secondary))
+                textSize = 13f
+                maxLines = 1
+                ellipsize = android.text.TextUtils.TruncateAt.END
+                isClickable = true
+                isFocusable = true
+                setPadding(dp(12), dp(10), dp(12), dp(10))
+                setBackgroundResource(R.drawable.bg_queue_item)
+                setOnClickListener {
+                    val accepted = CurrentTrackStore.sendControl("QUEUE_INDEX:$queueIndex")
+                    appendLog(
+                        if (accepted) "Выбран трек из очереди: $title"
+                        else "Не удалось выбрать трек: медиаплеер не принял команду."
+                    )
+                    if (accepted) {
+                        lastQueueSignature = null
+                        refreshTrackUi()
+                    }
+                }
+            }
+            val params = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                topMargin = if (displayIndex == 0) 0 else dp(6)
+            }
+            queueContainer.addView(row, params)
         }
     }
 
