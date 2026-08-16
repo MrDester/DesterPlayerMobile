@@ -286,18 +286,19 @@ class MainActivity : AppCompatActivity() {
         val currentIndex = track.queueTitles.indexOfFirst {
             it.equals(track.title, ignoreCase = true)
         }
-        val upcoming = if (currentIndex >= 0) {
+        val showUpcomingOnly = currentIndex >= 0 && currentIndex < track.queueTitles.lastIndex
+        val visibleQueue = if (showUpcomingOnly) {
             track.queueTitles.drop(currentIndex + 1)
         } else {
             track.queueTitles
         }
 
-        if (upcoming.isEmpty()) {
+        if (visibleQueue.isEmpty()) {
             val emptyView = TextView(this).apply {
                 text = if (track.queueTitles.isEmpty()) {
                     "♫  Очередь пока пуста\n    Выберите музыку в VKX"
                 } else {
-                    "♫  Это последний трек\n    Следующих песен пока нет"
+                    "♫  Очередь обновляется…"
                 }
                 setTextColor(ContextCompat.getColor(this@MainActivity, R.color.sender_text_secondary))
                 textSize = 13f
@@ -307,20 +308,21 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        upcoming.forEachIndexed { displayIndex, title ->
-            val queueIndex = if (currentIndex >= 0) {
+        visibleQueue.forEachIndexed { displayIndex, title ->
+            val queueIndex = if (showUpcomingOnly) {
                 currentIndex + 1 + displayIndex
             } else {
                 displayIndex
             }
             val row = TextView(this).apply {
-                text = "%02d   %s".format(displayIndex + 1, title)
+                text = "♫  %02d   %s".format(displayIndex + 1, title)
                 setTextColor(ContextCompat.getColor(this@MainActivity, R.color.sender_text_secondary))
                 textSize = 13f
                 maxLines = 1
                 ellipsize = android.text.TextUtils.TruncateAt.END
                 isClickable = true
                 isFocusable = true
+                isSelected = !showUpcomingOnly && queueIndex == currentIndex
                 setPadding(dp(12), dp(10), dp(12), dp(10))
                 setBackgroundResource(R.drawable.bg_queue_item)
                 setOnClickListener {
