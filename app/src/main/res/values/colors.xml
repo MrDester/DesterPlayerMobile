@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="sender_background">#FF101114</color>
+    <color name="sender_surface">#FF1B1D22</color>
+    <color name="sender_surface_pressed">#FF2A2D35</color>
+    <color name="sender_surface_high">#FF29243B</color>
+    <color name="sender_border">#FF343641</color>
+    <color name="sender_log">#FF14151A</color>
+    <color name="sender_text_primary">#FFF4F4F5</color>
+    <color name="sender_text_secondary">#FFB7BBC4</color>
+    <color name="sender_accent">#FFB86CFF</color>
+    <color name="sender_accent_soft">#332E2348</color>
+    <color name="sender_track">#FF45404F</color>
+    <color name="sender_button_text">#FF20172B</color>
+</resources>

@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">DesterPlayer</string>
+    <string name="screen_title">DesterPlayer</string>
+    <string name="screen_subtitle">Передача звука с телефона на компьютер</string>
+    <string name="status_label">Статус</string>
+    <string name="status_not_connected">Не подключено</string>
+    <string name="computer_ip_hint">IP компьютера</string>
+    <string name="port_hint">Порт</string>
+    <string name="find_pc">Найти ПК</string>
+    <string name="connect">Подключиться</string>
+    <string name="start_stream">Начать передачу</string>
+    <string name="stop_stream">Остановить передачу</string>
+    <string name="track_title">Текущий трек</string>
+    <string name="unknown_track">Неизвестный трек</string>
+    <string name="unknown_artist">Исполнитель неизвестен</string>
+    <string name="event_log">Журнал событий</string>
+    <string name="initial_log">Приложение запущено. Сеть и захват звука пока не подключены.</string>
+    <string name="find_pc_log">Ищу включённый DesterPlayer в локальной сети.</string>
+    <string name="connect_log">TCP-соединение установлено. Отправляю HELLO.</string>
+    <string name="start_stream_log">Отправлен тестовый PCM-тон 440 Гц длительностью около 3 секунд.</string>
+    <string name="stop_stream_log">Передача остановлена.</string>
+    <string name="status_searching">Поиск компьютера</string>
+    <string name="status_connecting">Подключение</string>
+    <string name="status_ready">Готово к передаче</string>
+    <string name="status_stopped">Передача остановлена</string>
+    <string name="status_connected">Подключено</string>
+    <string name="empty_ip_log">Введите IP-адрес компьютера.</string>
+    <string name="invalid_port_log">Укажите порт от 1 до 65535.</string>
+    <string name="connected_log">TCP-соединение с ПК установлено: %1$s:%2$d</string>
+    <string name="connection_failed_log">Не удалось подключиться к ПК: %1$s</string>
+    <string name="connection_closed_log">TCP-соединение с ПК закрыто.</string>
+    <string name="stream_requires_connection">Сначала подключитесь к ПК.</string>
+    <string name="stream_test_log">TCP-соединение активно. Захват звука пока не подключён.</string>
+</resources>

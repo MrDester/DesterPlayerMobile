@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sender_background">
+
+    <ScrollView
+        android:id="@+id/playerScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/sender_background"
+        android:fillViewport="true"
+        android:visibility="gone">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="18dp"
+        android:paddingTop="18dp"
+        android:paddingEnd="18dp"
+        android:paddingBottom="28dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="DesterPlayer"
+                android:textColor="@color/sender_text_primary"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/backToMenuButton"
+                android:layout_width="42dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/bg_header_button"
+                android:backgroundTint="@null"
+                android:gravity="center"
+                android:minWidth="0dp"
+                android:minHeight="42dp"
+                android:padding="0dp"
+                android:text="☰"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/helpButton"
+                android:layout_width="42dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/bg_header_button"
+                android:backgroundTint="@null"
+                android:gravity="center"
+                android:minWidth="0dp"
+                android:minHeight="42dp"
+                android:padding="0dp"
+                android:text="?"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/statusText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_status_pill"
+                android:paddingStart="12dp"
+                android:paddingTop="6dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="6dp"
+                android:text="@string/status_not_connected"
+                android:textColor="@color/sender_accent"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Музыка с телефона — на компьютере"
+            android:textColor="@color/sender_text_secondary"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:id="@+id/menuCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/bg_card_gradient"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:background="@drawable/bg_play_button"
+                    android:gravity="center"
+                    android:text="D"
+                    android:textColor="@color/sender_button_text"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Быстрый старт"
+                        android:textColor="@color/sender_text_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="Подключи ПК, включи передачу и управляй музыкой из одного места."
+                        android:textColor="@color/sender_text_secondary"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/menuPlayerButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:minHeight="0dp"
+                    android:text="Плеер"
+                    android:textSize="11sp" />
+
+                <Button
+                    android:id="@+id/menuConnectionButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:minHeight="0dp"
+                    android:text="Подключение"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/menuHelpButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:minHeight="0dp"
+                    android:text="Помощь"
+                    android:textSize="11sp" />
+
+                <Button
+                    android:id="@+id/menuAboutButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:minHeight="0dp"
+                    android:text="О проекте"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/playerCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_card_gradient"
+            android:orientation="vertical"
+            android:padding="18dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Сейчас играет"
+                android:textColor="@color/sender_text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_width="220dp"
+                android:layout_height="220dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_card_gradient">
+
+                <TextView
+                    android:id="@+id/coverPlaceholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="♫"
+                    android:textColor="#66FFFFFF"
+                    android:textSize="78sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/coverImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="Обложка текущего трека"
+                    android:scaleType="fitCenter" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/trackText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/unknown_track"
+                android:textColor="@color/sender_text_primary"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/artistText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/unknown_artist"
+                android:textColor="@color/sender_text_secondary"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/trackAccessButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="РАЗРЕШИТЬ НАЗВАНИЯ ТРЕКОВ"
+                android:textSize="10sp" />
+
+            <ProgressBar
+                android:id="@+id/trackProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="22dp"
+                android:max="100"
+                android:progress="0"
+                android:progressTint="@color/sender_accent"
+                android:progressBackgroundTint="@color/sender_track" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/trackPositionText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="00:00"
+                    android:textColor="@color/sender_text_secondary"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/trackDurationText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="—:—"
+                    android:textColor="@color/sender_text_secondary"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text="↶"
+                    android:textColor="@color/sender_text_primary"
+                    android:textSize="26sp" />
+
+                <TextView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="22dp"
+                    android:background="@drawable/bg_play_button"
+                    android:gravity="center"
+                    android:text="▶"
+                    android:textColor="@color/sender_button_text"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="22dp"
+                    android:gravity="center"
+                    android:text="↷"
+                    android:textColor="@color/sender_text_primary"
+                    android:textSize="26sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/connectionCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/bg_card"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Подключение к ПК"
+                android:textColor="@color/sender_text_primary"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/computerIpInput"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:backgroundTint="@color/sender_accent"
+                    android:hint="@string/computer_ip_hint"
+                    android:inputType="textUri"
+                    android:singleLine="true"
+                    android:textColor="@color/sender_text_primary"
+                    android:textColorHint="@color/sender_text_secondary" />
+
+                <EditText
+                    android:id="@+id/portInput"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/sender_accent"
+                    android:hint="@string/port_hint"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:text="37821"
+                    android:textColor="@color/sender_text_primary"
+                    android:textColorHint="@color/sender_text_secondary" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/findPcButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="НАЙТИ ПК"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/connectButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ПОДКЛЮЧИТЬСЯ"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/streamingCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/bg_card"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Передача звука"
+                android:textColor="@color/sender_text_primary"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Звук с телефона будет отправлен на выбранный компьютер"
+                android:textColor="@color/sender_text_secondary"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/startStreamButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="НАЧАТЬ ПЕРЕДАЧУ"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/stopStreamButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ОСТАНОВИТЬ"
+                android:textSize="12sp" />
+
+            <CheckBox
+                android:id="@+id/mutePhoneCheckbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:checked="true"
+                android:text="Без звука на телефоне во время передачи"
+                android:textColor="@color/sender_text_primary"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/queueSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Очередь"
+                android:textColor="@color/sender_text_primary"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/queueContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_card"
+                android:orientation="vertical"
+                android:padding="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/logSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Журнал событий"
+                android:textColor="@color/sender_text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/logText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_log"
+                android:fontFamily="monospace"
+                android:minHeight="120dp"
+                android:padding="12dp"
+                android:text="@string/initial_log"
+                android:textColor="@color/sender_text_secondary"
+                android:textIsSelectable="true"
+                android:textSize="11sp" />
+        </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/startMenu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription=""
+            android:scaleType="centerCrop"
+            android:src="@drawable/desterplayer_space" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#66080622" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingStart="30dp"
+            android:paddingTop="58dp"
+            android:paddingEnd="30dp"
+            android:paddingBottom="36dp">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.08"
+                android:text="DESTERPLAYER"
+                android:textColor="@color/sender_text_primary"
+                android:textSize="34sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="музыка с телефона — на компьютере"
+                android:textColor="#E6E1FF"
+                android:textSize="15sp" />
+
+            <View
+                android:layout_width="54dp"
+                android:layout_height="3dp"
+                android:layout_marginTop="18dp"
+                android:background="@color/sender_accent" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/startMenuConnectButton"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:background="@drawable/bg_menu_primary"
+                android:backgroundTint="@null"
+                android:text="ПОДКЛЮЧИТЬСЯ"
+                android:textColor="@color/sender_button_text"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/startMenuPlayerButton"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_menu_secondary"
+                android:backgroundTint="#FF5364D1"
+                android:text="ОТКРЫТЬ ПЛЕЕР"
+                android:textColor="@color/sender_text_primary"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/startMenuHelpButton"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_menu_ghost"
+                    android:backgroundTint="@null"
+                    android:text="ПОМОЩЬ"
+                    android:textColor="@color/sender_text_primary"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/startMenuSettingsButton"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_menu_ghost"
+                    android:backgroundTint="@null"
+                    android:text="НАСТРОЙКИ"
+                    android:textColor="@color/sender_text_primary"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:text="локальная сеть • DesterPlayer"
+                android:textColor="#BEB8E2"
+                android:textSize="11sp" />
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>
