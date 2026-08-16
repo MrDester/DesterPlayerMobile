@@ -36,7 +36,7 @@ object CurrentTrackStore {
             }
             .map { it.replace('\n', ' ').trim() }
             .filter { it.isNotBlank() }
-            .take(20)
+            .take(10_000)
 
         if (metadata == null) {
             current = current.copy(

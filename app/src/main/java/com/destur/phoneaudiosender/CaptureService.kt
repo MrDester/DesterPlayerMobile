@@ -536,7 +536,7 @@ class CaptureService : Service() {
         const val CONNECT_TIMEOUT_MS = 5000
         const val PROTOCOL_VERSION = 1
         const val HEADER_SIZE = 10
-        const val MAX_PAYLOAD_SIZE = 1024 * 1024
+        const val MAX_PAYLOAD_SIZE = 4 * 1024 * 1024
         const val SAMPLE_RATE = 48000
         const val AUDIO_FRAME_SIZE = 19200
         const val ZERO_AUDIO_CHECK_FRAMES = 10
